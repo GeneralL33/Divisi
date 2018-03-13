@@ -41,7 +41,7 @@ void loop ()
 
 // Fill the dots one after the other with a color
 void colorWipe(uint32_t c, uint8_t wait) {
-  for(uint16_t i=0; i<strip.numPixels(); i++) {
+  for(uint16_t i=0; i<strip.numPixels(); i+=4) {
     strip.setPixelColor(i, c);
     strip.show();
   }
