@@ -1,9 +1,40 @@
 var app = require('express')(),
     http = require('http').Server(app),
+    SerialPort = require('serialport'),
     io = require('socket.io')(http);
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/views/index.html');
+});
+
+/********* SerialPort concerns *********/
+const Readline = SerialPort.parsers.Readline;
+
+// port subject to change!
+var port = new SerialPort('COM3', {
+    baudRate: 9600
+}, function (err) {
+    if (err) {
+        return console.log('Error: ', err.message);
+    }
+});
+
+const parser = port.pipe(new Readline({ delimiter: '\r\n' }));
+
+port.on('open', function () {
+    // Server is connected to Arduino
+    console.log('Serial Port opened');
+
+    io.sockets.on('connection', function (socket) {
+        // Connecting to client 
+        console.log('Socket connected');
+        socket.emit('connected');
+
+        parser.on('data', function (data) {
+            console.log('Data: ', data);
+            socket.emit('data', data);
+        });
+    });
 });
 
 /********* Socket.IO concerns *********/

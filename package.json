@@ -23,6 +23,7 @@
   "homepage": "https://github.com/GeneralL33/Divisi#readme",
   "dependencies": {
     "express": "^4.15.2",
+    "serialport": "^6.1.1",
     "socket.io": "^2.0.4"
   }
 }
