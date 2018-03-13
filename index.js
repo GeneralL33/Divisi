@@ -3,7 +3,7 @@ var app = require('express')(),
     SerialPort = require('serialport'),
     io = require('socket.io')(http);
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
 
@@ -13,7 +13,7 @@ const Readline = SerialPort.parsers.Readline;
 // port subject to change!
 var port = new SerialPort('COM3', {
     baudRate: 9600
-}, function (err) {
+}, (err) => {
     if (err) {
         return console.log('Error: ', err.message);
     }
@@ -21,16 +21,16 @@ var port = new SerialPort('COM3', {
 
 const parser = port.pipe(new Readline({ delimiter: '\r\n' }));
 
-port.on('open', function () {
+port.on('open', () => {
     // Server is connected to Arduino
     console.log('Serial Port opened');
 
-    io.sockets.on('connection', function (socket) {
+    io.sockets.on('connection', (socket) => {
         // Connecting to client 
         console.log('Socket connected');
         socket.emit('connected');
 
-        parser.on('data', function (data) {
+        parser.on('data', (data) => {
             console.log('Data: ', data);
             socket.emit('data', data);
         });
@@ -39,15 +39,11 @@ port.on('open', function () {
 
 /********* Socket.IO concerns *********/
 
-io.on('connection', function (socket) {
+io.on('connection', (socket) => {
     console.log('a user connected');
 
-    socket.on('disconnect', function () {
+    socket.on('disconnect', () => {
         console.log('user disconnected');
-    });
-
-    socket.on('chat message', function (msg) {
-        io.emit('chat message', msg);
     });
 });
 
