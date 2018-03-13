@@ -1,6 +1,6 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var app = require('express')(),
+    http = require('http').Server(app),
+    io = require('socket.io')(http);
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/views/index.html');
@@ -22,6 +22,10 @@ io.on('connection', function (socket) {
 
 /***************************************/
 
-http.listen(3005, function () {
-    console.log('listening on *:3005');
+// Listen on port
+app.set('port', (process.env.PORT || 3005));
+
+// Notfy port
+http.listen(app.get('port'), () => {
+    console.log('Running on port', app.get('port'));
 });
