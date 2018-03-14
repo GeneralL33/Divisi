@@ -3,7 +3,7 @@
 var phase, speed, maxCircleSize, numRows, numCols, numStrands, colorA, colorB;
 
 function setup() {
-  createCanvas(1024, 750);
+  createCanvas(1024, 512);
   noStroke();
 
   phase = 0;
