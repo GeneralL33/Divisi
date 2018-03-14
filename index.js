@@ -1,12 +1,11 @@
 var nconf = require('nconf'),
-    app = require('express')(),
+    express = require('express'),
+    app = express(),
     http = require('http').Server(app),
     SerialPort = require('serialport'),
     io = require('socket.io')(http);
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html');
-});
+app.use(express.static(__dirname + '/public'));
 
 /********* Environment configuration concerns *********/
 // First consider commandline arguments and environment variables, respectively.
