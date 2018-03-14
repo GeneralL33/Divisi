@@ -52,9 +52,18 @@ port.on('open', () => {
         console.log('Socket connected');
         socket.emit('connected');
 
+        var lastUniqueValue;
+
         parser.on('data', (data) => {
-            console.log('Data: ', data);
-            socket.emit('data', data);
+            var value = data;
+
+            if (lastUniqueValue !== value) {
+                socket.emit('data', value);
+            }
+
+            lastUniqueValue = value;
+
+            console.log('Data value: ', value);
         });
     });
 });

@@ -32,9 +32,9 @@ void loop ()
 {
   sensorValue = analogRead (sensorPin);
   val = digitalRead(digPin);
-  Serial.print("Digital Value: ");
-  Serial.println(val);
-  Serial.print("Analog Value: ");
+  // Serial.print("Digital Value: ");
+  // Serial.println(val);
+  // Serial.print("Analog Value: ");
   Serial.println (sensorValue, DEC);
   colorWipe(strip.Color(sensorValue, 0, 0), 60);
 }

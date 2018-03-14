@@ -1,5 +1,7 @@
-$(function () {
-    var socket = io('http://localhost:3005');
+var emittedValue = 0;
+
+document.addEventListener("DOMContentLoaded", function (event) {
+    var socket = io(document.location.href);
 
     socket.on('connect', function () {
         console.log('Connected!');
@@ -7,8 +9,11 @@ $(function () {
     });
 
     socket.on('data', function (data) {
-        console.log('Data: ', data);
-        document.getElementById('emit-value').innerHTML += data;
+        emittedValue = data;
+
+        // // logging
+        // console.log(data);
+        // document.getElementById('emit-value').innerHTML += data;
     });
 
     socket.on('disconnect', function () {
