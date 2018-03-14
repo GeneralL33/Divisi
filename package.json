@@ -26,5 +26,8 @@
     "express": "^4.15.2",
     "serialport": "^6.1.1",
     "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "nconf": "^0.10.0"
   }
 }

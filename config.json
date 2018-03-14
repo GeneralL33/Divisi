@@ -1,0 +1,9 @@
+{
+    "http": {
+        "port": 3005
+    },
+    "serialPort": {
+        "port": "COM4",
+        "baudRate": 9600
+    }
+}
